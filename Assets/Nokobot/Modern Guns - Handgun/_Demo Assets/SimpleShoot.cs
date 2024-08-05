@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using TMPro;
+using System.Globalization;
 
 [AddComponentMenu("Nokobot/Modern Guns/Simple Shoot")]
 public class SimpleShoot : MonoBehaviour
@@ -10,11 +12,13 @@ public class SimpleShoot : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject casingPrefab;
     public GameObject muzzleFlashPrefab;
+    public TextMeshProUGUI AmmoText;
 
     [Header("Location Refrences")]
     [SerializeField] private Animator gunAnimator;
     [SerializeField] private Transform barrelLocation;
     [SerializeField] private Transform casingExitLocation;
+    
 
     [Header("Settings")]
     [Tooltip("Specify time to destory the casing object")] [SerializeField] private float destroyTimer = 2f;
@@ -24,10 +28,11 @@ public class SimpleShoot : MonoBehaviour
     public AudioSource source;
     public AudioClip fireSound;
     public AudioClip reload;
+    public AudioClip reload2;
     public AudioClip noAmmo;
     public Magazine magazine;
-    public XRBaseInteractor socketInteractor;
 
+    public XRBaseInteractor socketInteractor;
 
     public void AddMagazine(SelectEnterEventArgs args)
     {
@@ -36,7 +41,7 @@ public class SimpleShoot : MonoBehaviour
         if (magazine != null)
         {
             this.magazine = magazine;
-            source.PlayOneShot(reload);
+            source.PlayOneShot(reload2);
         }
     }
     public void RemoveMagazine(SelectExitEventArgs args)
@@ -47,6 +52,7 @@ public class SimpleShoot : MonoBehaviour
 
     void Start()
     {
+        magazine = null;
         if (barrelLocation == null)
             barrelLocation = transform;
 
@@ -55,6 +61,18 @@ public class SimpleShoot : MonoBehaviour
 
         socketInteractor.selectEntered.AddListener(args => { AddMagazine(args); });
         socketInteractor.selectExited.AddListener(args => { RemoveMagazine(args); });
+    }
+
+    private void Update()
+    {
+        if (magazine != null)
+        {
+            AmmoText.text = magazine.numberOfBullet.ToString();
+        }
+        else
+        {
+            AmmoText.text = "0";
+        }
     }
 
     public void PulltheTrigger()
