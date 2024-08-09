@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4612578480326555013}
+  m_Father: {fileID: 3281678944420102266}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4096400950208082844
 MonoBehaviour:
@@ -124,9 +124,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6164996294561244638}
-  - {fileID: 4696502953322019713}
-  - {fileID: 461655571727313712}
   - {fileID: 3281678944420102266}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -160,7 +157,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4612578480326555013}
+  m_Father: {fileID: 3281678944420102266}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2126967909347687485
 MonoBehaviour:
@@ -206,7 +203,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4612578480326555013}
+  m_Father: {fileID: 3281678944420102266}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8651194644712781577
 MonoBehaviour:
@@ -772,6 +769,18 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
+        type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 461655571727313712}
+    - targetCorrespondingSourceObject: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
+        type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 4696502953322019713}
+    - targetCorrespondingSourceObject: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
+        type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 6164996294561244638}
     - targetCorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
         type: 3}
       insertIndex: -1
@@ -850,8 +859,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6964a6f27b01cec46a2c46b9ae4a85f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerVisual: {fileID: 8758423527188247893, guid: 1392f805216c47742996d4742c80721c,
-    type: 3}
+  leftControllerModel: {fileID: 0}
+  rightControllerModel: {fileID: 0}
 --- !u!1 &4205723299635157285 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1767192433, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
@@ -926,8 +935,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6964a6f27b01cec46a2c46b9ae4a85f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerVisual: {fileID: 4283425761326543017, guid: 9f3369e30fbd31f4bb596b1a99babe83,
-    type: 3}
+  leftControllerModel: {fileID: 0}
+  rightControllerModel: {fileID: 0}
 --- !u!114 &7105128926096860287 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6397299583031462443, guid: f6336ac4ac8b4d34bc5072418cdc62a0,

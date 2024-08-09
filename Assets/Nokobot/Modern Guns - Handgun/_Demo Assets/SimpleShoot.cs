@@ -20,6 +20,9 @@ public class SimpleShoot : MonoBehaviour
     [SerializeField] private Transform barrelLocation;
     [SerializeField] private Transform casingExitLocation;
 
+    public BulletHole bulletHole;
+    public GameObject bulletHoleDecal;
+
 
     [Header("Settings")]
     [Tooltip("Specify time to destory the casing object")][SerializeField] private float destroyTimer = 2f;
@@ -88,10 +91,24 @@ public class SimpleShoot : MonoBehaviour
         }
     }
 
-    //This function creates the bullet behavior
-    // This function creates the bullet behavior
+    private void OnCollisionEnter(Collision collision)
+    {
+        Vector3 impactPosition = collision.contacts[0].point;
+        Vector3 impactNormal = collision.contacts[0].normal;
+
+        // Instantiate the bullet hole decal prefab
+        GameObject bulletHoleDecal = Instantiate(bulletHole.decalPrefab, impactPosition, Quaternion.LookRotation(impactNormal));
+
+        bulletHole.BulletImpact(impactPosition, impactNormal);
+
+        //Destroy(gameObject);
+    }
+
     public void Shoot()
     {
+        // Reduce the number of bullets in the magazine
+        magazine.numberOfBullet--;
+
         // Create a new bullet
         GameObject bullet = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation);
 
@@ -121,42 +138,39 @@ public class SimpleShoot : MonoBehaviour
 
         // Play the fire sound
         source.PlayOneShot(fireSound);
-
-        // Reduce the number of bullets in the magazine
-        magazine.numberOfBullet--;
     }
 
-    // This function creates a casing at the ejection slot
-    void CasingRelease()
-    {
-        // Cancels function if ejection slot hasn't been set or there's no casing
-        if (!casingExitLocation || !casingPrefab)
-        { return; }
+        // This function creates a casing at the ejection slot
+        void CasingRelease()
+        {
+            // Cancels function if ejection slot hasn't been set or there's no casing
+            if (!casingExitLocation || !casingPrefab)
+            { return; }
 
-        // Create the casing
-        GameObject casing = Instantiate(casingPrefab, casingExitLocation.position, casingExitLocation.rotation);
+            // Create the casing
+            GameObject casing = Instantiate(casingPrefab, casingExitLocation.position, casingExitLocation.rotation);
 
-        // Get the Rigidbody component of the casing
-        Rigidbody casingRigidbody = casing.GetComponent<Rigidbody>();
+            // Get the Rigidbody component of the casing
+            Rigidbody casingRigidbody = casing.GetComponent<Rigidbody>();
 
-        // Calculate the ejection direction
-        Vector3 ejectionDirection = casingExitLocation.right;
+            // Calculate the ejection direction
+            Vector3 ejectionDirection = casingExitLocation.right;
 
-        // Add a small random deviation to the ejection direction
-        ejectionDirection = Quaternion.Euler(0, Random.Range(-30f, 30f), 0) * ejectionDirection;
+            // Add a small random deviation to the ejection direction
+            ejectionDirection = Quaternion.Euler(0, Random.Range(-30f, 30f), 0) * ejectionDirection;
 
-        // Calculate the initial velocity of the casing
-        Vector3 initialVelocity = ejectionDirection * ejectPower;
+            // Calculate the initial velocity of the casing
+            Vector3 initialVelocity = ejectionDirection * ejectPower;
 
-        // Add the initial velocity to the casing
-        casingRigidbody.velocity = initialVelocity;
+            // Add the initial velocity to the casing
+            casingRigidbody.velocity = initialVelocity;
 
-        // Add a torque to the casing to make it spin
-        casingRigidbody.AddTorque(ejectionDirection * 100f, ForceMode.Impulse);
+            // Add a torque to the casing to make it spin
+            casingRigidbody.AddTorque(ejectionDirection * 100f, ForceMode.Impulse);
 
-        // Destroy the casing after a short time
-        Destroy(casing, destroyTimer);
-    }
-
+            // Destroy the casing after a short time
+            Destroy(casing, destroyTimer);
+        }
 
 }
+
